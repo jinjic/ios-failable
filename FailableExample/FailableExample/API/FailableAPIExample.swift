@@ -85,8 +85,8 @@ open class FailableAPIExample {
             .responseJSON { response in
                 if let JSON = response.result.value as? [String: AnyObject],
                    let data = JSON["data"] as? [String: AnyObject],
-                   let results = data["results"] as? [[String: AnyObject]],
-                   let characters = Mapper<MarvelCharacter>().mapArray(JSONArray: results) {
+                   let results = data["results"] as? [[String: AnyObject]] {
+                    let characters = Mapper<MarvelCharacter>().mapArray(JSONArray: results)
                     completion?(.success(characters))
                 } else {
                     completion?(.failure(FailableError.failableExampleError("no results")))
